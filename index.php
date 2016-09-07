@@ -1,22 +1,26 @@
 <?php
-
+//load config and mysql_my_manager object
 require 'php/config.php';
 
-/* Connect DB */
+/* Connect to database */
 $db->conn();
-
+//get results form database
 $results = $db->select('certificate_number, certificate_name, certificate_expiry', 'vouchers_certificates', "WHERE id='1'");
+//convert it to array
 $results = $results->fetch_assoc();
+//check is any records came
 if ($results !== null) {
-
+	//put details from to variables from database
 	$cert_number = $results['certificate_number'];
 	$cert_name = $results['certificate_name'];
 	$cert_expiry = $results['certificate_expiry'];
 	
 }
+//close connection to databse
 $db->close();
-
+//if all fields from form has datails
 if ($_POST['certificate_number'] != "" && $_POST['certificate_name'] != "" && $_POST['certificate_expiry'] != ""){
+	//replace data from database to data from form
 	$cert_number = $_POST['certificate_number'];
 	$cert_name = $_POST['certificate_name'];
 	$cert_expiry = $_POST['certificate_expiry'];
@@ -47,10 +51,14 @@ if ($_POST['certificate_number'] != "" && $_POST['certificate_name'] != "" && $_
 </head>
 
 <body>
-	<header class="page-header">
+	<!------------------- HEADER ------------->
+    <header class="page-header">
     	<div class="logo">Peter Software Solution</div>
     </header>
+    <!------------------- HEADER END --------------->
+    <!------------------------ MAIN CONTAINER ---------------->
     <div class="container">
+        <!----------------------------- FORM ------------------>
         <form action="index.php" method="post" >
             <div class="form-group">
               <label for="name">To:</label>
@@ -66,12 +74,18 @@ if ($_POST['certificate_number'] != "" && $_POST['certificate_name'] != "" && $_
             </div>
             <button type="submit" id="click" class="btn btn-default">Submit</button>
          </form>
+         <!--------------------------- FORM END ------------------------------------------->
+        <!------------------------- DISPLAY CERTIFICATE ----------------------------------->
         <div class="certificate">
         	<div style="position:absolute; top:670px; left: 350px"><?php echo $cert_number; ?></div>
             <div style="position:absolute; top:525px; left: 275px"><font style="font-weight:bold; font-size:24px;"><?php echo $cert_name; ?></font></div>
             <div style="position:absolute; top:700px; left: 350px"><?php echo $cert_expiry; ?></div>
         </div>
+        <!------------------------- DISPLAY CERTIFICATE END ------------------------------->
     </div>
+    <!--------------------------- MAIN CONTAINER END --------------------------->
+    <!--------------------------- FOOTER --------------------------------------->
 	<footer class="panel-footer">Copyright &copy; 2016 Piotr "PeterMax" Martficki</footer>
+    <!---------------------------- Footer END ---------------------------------->
 </body>
 </html>
