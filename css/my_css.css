@@ -1,0 +1,9 @@
+@charset "UTF-8";
+/* CSS Document */
+
+.certificate {
+	background-image:url(../img/certificate.png);
+	width:800 px;
+	background-repeat:no-repeat;
+	height:400px;
+}
